@@ -75,7 +75,7 @@ public class JobData {
 
             String aValue = row.get(column);
 
-            if (aValue.contains(value)) {
+            if (aValue.toLowerCase().contains(value.toLowerCase())) {
                 jobs.add(row);
             }
         }
@@ -93,9 +93,34 @@ public class JobData {
 
         // load data, if not already loaded
         loadData();
+        ArrayList<HashMap<String, String>> sameJobs = new ArrayList<>();
+
+        //Iterate over all jobs
+        for (HashMap<String, String> xjob : allJobs) {
+            boolean matches = false;
+
+            //Iterating over each column??
+            for (String key : xjob.keySet()) {
+                //Pulling the value in current column
+                String columnValue = xjob.get(key);
+
+                //Now we make the column value case insensitive to compare with search term
+                if (columnValue.toLowerCase().contains(value.toLowerCase())) {
+                  sameJobs.add(xjob);
+
+//                    matches = true;
+                    break;
+                }
+            }
+            //If job matches in column add to the results
+//            if (matches) {
+//                sameJobs.add(xjob);
+//                break;
+            }
+//        }
 
         // TODO - implement this method
-        return null;
+        return sameJobs;
     }
 
     /**
